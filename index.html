@@ -496,13 +496,13 @@
         }
 
         function getSlotStatus(slotNum) {
-            if (!occupancyData || !occupancyData.slots) return { occupied: false, overlap: 0 };
+            if (!occupancyData || !occupancyData.slots) return { occupied: false, confidence: 0 };
             const slotKey = `slot_${slotNum}`;
             const slot = occupancyData.slots[slotKey];
-            if (!slot) return { occupied: false, overlap: 0 };
+            if (!slot) return { occupied: false, confidence: 0 };
             return {
-                occupied: slot.overlap_percentage >= currentThreshold,
-                overlap: slot.overlap_percentage
+                occupied: slot.confidence_percentage >= currentThreshold,
+                confidence: slot.confidence_percentage
             };
         }
 
@@ -537,7 +537,7 @@
                             ${slotNum}
                             <div class="slot-tooltip">
                                 Slot ${slotNum}<br>
-                                Overlap: ${status.overlap.toFixed(1)}%<br>
+                                Confidence: ${status.confidence.toFixed(1)}%<br>
                                 Status: ${status.occupied ? 'Occupied' : 'Vacant'}
                             </div>
                         `;
